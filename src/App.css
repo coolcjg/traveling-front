@@ -1,19 +1,25 @@
-.nav{
-  background-color:blanchedalmond;
+nav{
+  background-color:black;
+  
 }
 
-.content{
+.nav > .content{
   max-width:980px;
   margin:0 auto;
+  
 }
 
-.list{
+.nav ul{
+  width:300px;
   display:flex;
   justify-content:space-between;
-  margin:0;
+  margin:0 auto;
+  padding-inline-start:0;
 }
 
-.item{
-  display:inline-block;
-  height:44px;
+.nav li{
+  align-items:center;
+  height:44px;  
+  display:flex;
+  color:white;
 }
