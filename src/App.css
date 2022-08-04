@@ -23,3 +23,24 @@ nav{
   display:flex;
   color:white;
 }
+
+.nav a{
+  text-decoration-line: none;
+  color:white;
+}
+
+#player{
+  display:flex;
+  justify-content: center;
+  background-color:rgb(31, 31, 31);
+  
+}
+
+.video-container{
+
+}
+
+#player .main-video{
+  width:100%;
+  max-height:900px;
+}

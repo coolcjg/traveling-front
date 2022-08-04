@@ -5,10 +5,10 @@ const Nav = () => {
         <nav className='nav'>
             <div className='content'>
                 <ul className='list'>
-                    <li className='item'>홈</li>
-                    <li className='item'>여행 정보</li>
-                    <li className='item'>사진</li>
-                    <li className='item'>동영상</li>
+                    <li className='item'><a href="/">홈</a></li>
+                    <li className='item'><a href="/info">여행 정보</a></li>
+                    <li className='item'><a href="/">사진</a></li>
+                    <li className='item'><a href="/">동영상</a></li>
                 </ul>
             </div>
         </nav>
