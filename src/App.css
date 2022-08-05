@@ -1,10 +1,8 @@
 nav{
   background-color:black;
-  
 }
 
 .nav > .content{
-  max-width:980px;
   margin:0 auto;
   
 }
@@ -33,7 +31,6 @@ nav{
   display:flex;
   justify-content: center;
   background-color:rgb(31, 31, 31);
-  
 }
 
 .video-container{
@@ -43,4 +40,75 @@ nav{
 #player .main-video{
   width:100%;
   max-height:900px;
+}
+
+#info {
+  display:flex;
+}
+
+#sections{
+  min-width:200px;
+  height:400px;
+  border: 1px;
+}
+
+#sections .item{
+  display:flex;
+  align-items:center;
+  height:40px;
+  padding-left:10px;
+  cursor:pointer;
+}
+
+#sections .hover{
+  background-color:rgba(128, 128, 128, 0.1);
+}
+
+#primary {
+  width:100%;
+  max-width:800px;
+  background-color:rgb(128, 128, 128, 0.1);
+}
+
+.info-primary-search-container{
+  padding-top:5px;
+  padding-bottom:30px;
+}
+
+.info-primary-search-inner-container{
+  float:right;
+}
+
+.gu-container{
+  display:inline-block;
+  margin:0 10px;
+}
+
+.filter-container{
+  display:inline-block;
+  margin:0 10px;
+}
+
+.info-primary-table{
+  border-collapse:collapse;
+  width:100%;
+  border:1px solid black;
+}
+
+tr{
+  border-bottom:1px solid black;
+}
+
+td{
+  text-align: center;
+}
+
+.info-primary-paging{
+  margin:10px;
+  display:flex;
+  justify-content: center;
+}
+
+.info-primary-paging a{
+  margin:0 10px;
 }
