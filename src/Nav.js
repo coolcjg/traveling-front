@@ -7,6 +7,11 @@ const Nav = () => {
         window.location.href='/loginForm';
     }
 
+    function joinForm(e){
+        e.preventDefault();
+        window.location.href='/joinForm';
+    }    
+
     return(
         <nav className='nav'>
             <div className='content'>
@@ -19,7 +24,8 @@ const Nav = () => {
             </div>
 
             <div className='loginContainer'>
-                <button className='loginButton' onClick={loginForm}>로그인</button>
+                <button className='navButton' onClick={joinForm}>가입</button>
+                <button className='navButton' onClick={loginForm}>로그인</button>
             </div>
         </nav>
     );
