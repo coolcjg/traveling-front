@@ -1,6 +1,6 @@
 
 
-function loginForm() {
+const loginForm = () => {
 
 
     return(
