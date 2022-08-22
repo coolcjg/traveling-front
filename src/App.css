@@ -133,7 +133,15 @@ td{
 .inputContainer{
   display:block;
   margin:0 auto;
-  width:200px;
+  width:300px;
+}
+
+.inputContainer > div{
+  margin-bottom:10px;
+}
+
+.inputContainer input{
+  width:100%;
 }
 
 .navButton{
@@ -143,7 +151,7 @@ td{
 
 .joinFormContainer{
   margin:40px auto;
-  width:400px;
+  width:600px;
   border:1px solid black;
 }
 
