@@ -6,32 +6,29 @@ const JoginForm = () => {
 
     useEffect(() =>{
 
-        document.getElementById('id').addEventListener('focusout', (e)=>{
-            checkId(e.target.value);
-        });
-
-        function checkId(id){
-
-            axios({
-                url: 'http://localhost:5000/user/checkId', // 통신할 웹문서
-                method: 'post', // 통신할 방식
-                headers: { 'content-type': 'application/json', 'Pragma': 'no-cache'},
-                dataType: "json",
-                data: { 
-                  id: id,
-                }
-
-            }).then(response =>{
-                if(response.data.result >= 1){
-                    document.getElementById('idSpan').textContent ='이미 존재하는 아이디입니다.';
-                }else{
-                    document.getElementById('idSpan').textContent ='';
-                };
-
-            })
-
-        }
     },[])
+
+    function checkId(id){
+
+        axios({
+            url: 'http://localhost:5000/user/checkId', // 통신할 웹문서
+            method: 'post', // 통신할 방식
+            headers: { 'content-type': 'application/json', 'Pragma': 'no-cache'},
+            dataType: "json",
+            data: { 
+              id: id,
+            }
+
+        }).then(response =>{
+            if(response.data.result >= 1){
+                document.getElementById('idSpan').textContent ='이미 존재하는 아이디입니다.';
+            }else{
+                document.getElementById('idSpan').textContent ='';
+            };
+
+        })
+
+    }    
 
     function checkPassword(){
         if(document.getElementById('password1').value !== document.getElementById('password2').value){
@@ -39,7 +36,19 @@ const JoginForm = () => {
         }else{
             document.getElementById('passwordSpan').textContent ='';
         }
-    }    
+    }
+
+    function checkEmail(email){
+        console.log("email : "  + email);
+
+        var regexEmail = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/;
+
+        if(regexEmail.test(email) !== true){
+            document.getElementById('emailSpan').textContent='적합한 이메일이 아닙니다';
+        }else{
+            document.getElementById('emailSpan').textContent='';
+        }
+    }
 
     return(
         <>
@@ -58,7 +67,7 @@ const JoginForm = () => {
                         <div>
                             <label htmlFor='id'>아이디 </label>
                             <div>
-                            <input type='text' id='id'></input>
+                            <input type='text' id='id' onChange={(e) => checkId(e.target.value)}></input>
                             </div>
                             <span id='idSpan'></span>
                         </div>
@@ -73,7 +82,7 @@ const JoginForm = () => {
                         <div>
                             <label htmlFor='password2'>비밀번호 확인 </label>
                             <div>
-                            <input type='password2' id='password2' onBlur={checkPassword}></input>
+                            <input type='password2' id='password2' onChange={checkPassword}></input>
                             </div>
                             <span id='passwordSpan'></span>
                         </div>
@@ -83,15 +92,14 @@ const JoginForm = () => {
                             <div>
                             <input type='name' id='name'></input>
                             </div>
-                            <span>aaa</span>
                         </div>
 
                         <div>
                             <label htmlFor='email'>이메일 </label>
                             <div>
-                            <input type='email' id='email'></input>                        
+                            <input type='email' id='email' onChange={(e) => checkEmail(e.target.value)}></input>                        
                             </div>
-                            <span>bbb</span>
+                            <span id="emailSpan"></span>
                         </div>
 
                     </div>

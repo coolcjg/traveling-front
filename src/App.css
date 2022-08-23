@@ -144,6 +144,10 @@ td{
   width:100%;
 }
 
+.inputContainer span{
+  color:red;
+}
+
 .navButton{
   display:block;
   margin:auto 5px;
