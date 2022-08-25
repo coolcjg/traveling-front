@@ -1,14 +1,26 @@
-import { useEffect } from "react";
+import { useEffect, useState, useRef } from "react";
 import axios from 'axios';
 
 
 const JoginForm = () => {
 
-    useEffect(() =>{
+    const [id, setId] = useState('');
+    const [idSpan, setIdSpan] = useState('');
+    const [password1, setPassword1] = useState('');
+    const [password2, setPassword2] = useState('');
+    const [passwordSpan, setPasswordSpan] = useState('');
+    const [name, setName] = useState('');
+    const [email, setEmail] = useState('');
+    const [emailSpan, setEmailSpan] = useState('');
 
-    },[])
+    const idInput = useRef();
+    const password1Input = useRef();
+    const password2Input = useRef();
+    const nameInput = useRef();
 
-    function checkId(id){
+    function checkId(param){
+
+        setId(param);
 
         axios({
             url: 'http://localhost:5000/user/checkId', // 통신할 웹문서
@@ -21,33 +33,68 @@ const JoginForm = () => {
 
         }).then(response =>{
             if(response.data.result >= 1){
-                document.getElementById('idSpan').textContent ='이미 존재하는 아이디입니다.';
+                setIdSpan('이미 존재하는 아이디입니다.');
             }else{
-                document.getElementById('idSpan').textContent ='';
+                setIdSpan('');
             };
-
         })
 
-    }    
-
-    function checkPassword(){
-        if(document.getElementById('password1').value !== document.getElementById('password2').value){
-            document.getElementById('passwordSpan').textContent ='비밀번호를 다시 확인해주세요.';
-        }else{
-            document.getElementById('passwordSpan').textContent ='';
-        }
     }
 
+    useEffect(()=>{
+
+        if(password1 !== '' && password2 !== ''){
+            if(password1 !== password2){
+                setPasswordSpan('비밀번호를 다시 확인해주세요.');
+            }else{
+                setPasswordSpan('');
+            } 
+        }
+
+    }, [password1, password2]);
+
+
     function checkEmail(email){
-        console.log("email : "  + email);
+
+        setEmail(email);
 
         var regexEmail = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/;
 
         if(regexEmail.test(email) !== true){
-            document.getElementById('emailSpan').textContent='적합한 이메일이 아닙니다';
+            setEmailSpan('적합한 이메일이 아닙니다');
+            return;
         }else{
-            document.getElementById('emailSpan').textContent='';
+            setEmailSpan('');
         }
+    }
+
+    function join(){
+        if(id === ''){
+            alert('아이디를 입력해주세요.');
+            idInput.current.focus();
+            return;
+        }
+
+        if(password1 === ''){
+            alert('비밀번호를 입력해주세요.');
+            password1Input.current.focus();
+            return;
+        }
+
+        if(password1 !== password2){
+            alert('비밀번호를 확인해주세요.');
+            password2Input.current.focus();
+            return;
+        }
+
+        if(name === ''){
+            alert('이름을 입력해주세요');
+            nameInput.current.focus();
+            return;
+        }
+        
+        checkEmail(email);
+
     }
 
     return(
@@ -67,30 +114,30 @@ const JoginForm = () => {
                         <div>
                             <label htmlFor='id'>아이디 </label>
                             <div>
-                            <input type='text' id='id' onChange={(e) => checkId(e.target.value)}></input>
+                            <input type='text' id='id' onChange={(e) => checkId(e.target.value)} ref={idInput}></input>
                             </div>
-                            <span id='idSpan'></span>
+                            <span>{idSpan}</span>
                         </div>
                         
                         <div>
                             <label htmlFor='password1'>비밀번호 </label>
                             <div>
-                            <input type='password1' id='password1'></input>
+                            <input type='password1' id='password1' value={password1} onChange={(e) => setPassword1(e.target.value)} ref={password1Input}></input>
                             </div>
                         </div>
 
                         <div>
                             <label htmlFor='password2'>비밀번호 확인 </label>
                             <div>
-                            <input type='password2' id='password2' onChange={checkPassword}></input>
+                            <input type='password2' id='password2' ref={password2Input} onChange={(e) => setPassword2(e.target.value)}></input>
                             </div>
-                            <span id='passwordSpan'></span>
+                            <span>{passwordSpan}</span>
                         </div>
 
                         <div>
                             <label htmlFor='name'>이름 </label>
                             <div>
-                            <input type='name' id='name'></input>
+                            <input type='name' id='name' ref={nameInput} onChange={(e) => setName(e.target.value)}></input>
                             </div>
                         </div>
 
@@ -99,13 +146,13 @@ const JoginForm = () => {
                             <div>
                             <input type='email' id='email' onChange={(e) => checkEmail(e.target.value)}></input>                        
                             </div>
-                            <span id="emailSpan"></span>
+                            <span>{emailSpan}</span>
                         </div>
 
                     </div>
 
                     <div className='joinButtonContainer'>
-                        <button className='joinButton'>가입</button>
+                        <button className='joinButton' onClick={join}>가입</button>
                     </div>
             </div>
         </>
