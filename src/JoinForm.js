@@ -1,5 +1,6 @@
 import { useEffect, useState, useRef } from "react";
 import axios from 'axios';
+import {sha256} from 'js-sha256';
 
 
 const JoginForm = () => {
@@ -12,6 +13,7 @@ const JoginForm = () => {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [emailSpan, setEmailSpan] = useState('');
+    const [passwordSHA, setPasswordSHA] = useState('');
 
     const idInput = useRef();
     const password1Input = useRef();
@@ -28,7 +30,7 @@ const JoginForm = () => {
             headers: { 'content-type': 'application/json', 'Pragma': 'no-cache'},
             dataType: "json",
             data: { 
-              id: id,
+              id: param,
             }
 
         }).then(response =>{
@@ -68,7 +70,8 @@ const JoginForm = () => {
         }
     }
 
-    function join(){
+    function checkForm(){
+
         if(id === ''){
             alert('아이디를 입력해주세요.');
             idInput.current.focus();
@@ -94,8 +97,37 @@ const JoginForm = () => {
         }
         
         checkEmail(email);
-
+        
+        setPasswordSHA(sha256.hmac(id, password1));
     }
+
+
+    const isMounted = useRef(false);
+    useEffect(()=>{
+        if(isMounted.current){
+            axios({
+                url: 'http://localhost:5000/user/insertUser', // 통신할 웹문서
+                method: 'post', // 통신할 방식
+                headers: { 'content-type': 'application/json', 'Pragma': 'no-cache'},
+                dataType: "json",
+                data: {
+                    id:id
+                    ,password:passwordSHA
+                    ,name:name
+                    ,email:email
+                }
+
+            }).then(response =>{
+                if(response.data.result !== ''){
+                    alert('가입 성공');
+                }else{
+                    alert('가입 실패');
+                };
+            })        
+        }else{
+            isMounted.current = true;
+        }
+    }, [passwordSHA]);
 
     return(
         <>
@@ -152,7 +184,7 @@ const JoginForm = () => {
                     </div>
 
                     <div className='joinButtonContainer'>
-                        <button className='joinButton' onClick={join}>가입</button>
+                        <button className='joinButton' onClick={checkForm}>가입</button>
                     </div>
             </div>
         </>
