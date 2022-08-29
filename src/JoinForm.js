@@ -131,13 +131,13 @@ const JoginForm = () => {
 
     return(
         <>
-            <div className='joinFormContainer'>
+            <div className='userFormContainer'>
 
-                    <div className='joinFormLogo'>
+                    <div className='userFormLogo'>
                         <a href='/'>여행중</a>
                     </div>
 
-                    <div className='joinFormTitle'>
+                    <div className='userFormTitle'>
                         <h3>회원가입</h3>
                     </div>
 
@@ -183,7 +183,7 @@ const JoginForm = () => {
 
                     </div>
 
-                    <div className='joinButtonContainer'>
+                    <div className='userButtonContainer'>
                         <button className='joinButton' onClick={checkForm}>가입</button>
                     </div>
             </div>

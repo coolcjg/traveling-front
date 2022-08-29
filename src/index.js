@@ -4,31 +4,14 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.css';
-
 import axios from 'axios';
+import setAuthorizationToken from './jwt/setAuthorizationToken'
 
 axios.defaults.baseURL = "http://localhost:8080";
 axios.defaults.withCredentials=true;
 
 
-const onLogin = (id, password) => {
-  const data = {id, password};
-
-  axios.post('/login', data).then(response => {
-    const {accessToken} = response.data;
-
-    // API 요청하는 콜마다 헤더에 accessToken 담아 보내드록 설정
-    axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
-
-  }).catch(error => {
-
-  });
-
-}
-
-
-
-
+setAuthorizationToken(localStorage.accessToken);
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));

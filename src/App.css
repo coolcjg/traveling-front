@@ -153,31 +153,31 @@ td{
   margin:auto 5px;
 }
 
-.joinFormContainer{
+.userFormContainer{
   margin:40px auto;
   width:600px;
   border:1px solid black;
 }
 
-.joinButtonContainer{
+.userButtonContainer{
   display:flex;
   justify-content: center;
   margin:20px auto;
 }
 
-.joinFormLogo{
+.userFormLogo{
   margin:10px;
   display:flex;
   justify-content:center;
   font-size:2em;
 }
 
-.joinFormLogo a{
+.userFormLogo a{
   text-decoration-line: none;
   color:black;
 }
 
-.joinFormTitle{
+.userFormTitle{
   display:flex;
   justify-content:center;
 }
