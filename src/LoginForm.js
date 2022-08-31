@@ -30,10 +30,10 @@ const LoginForm = () => {
                 console.log("응답");
                 console.log(response);
                 if(response.data.result === 1){
-                    //localStorage.setItem('accessToken', response.data.accessToken);
-                    //localStorage.setItem('refreshToken', response.data.refreshToken);
+                    localStorage.setItem('accessToken', response.data.accessToken);
+                    localStorage.setItem('refreshToken', response.data.refreshToken);
                     setAuthorizationToken(response.data.accessToken);
-                    window.location.href="/";
+                    //window.location.href="/";
                 }
                 
             });

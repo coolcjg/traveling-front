@@ -1,8 +1,13 @@
 import React, {useState, useEffect} from 'react';
+import {useSelector, useDispatch} from 'react-redux';
+import { counterReducer } from "./reducer/count";
+import {connect} from 'react-redux'
+import {increment, decrement} from './actions/count';
 
-const Nav = () => {
+const Nav = (state) => {
 
     const [accessToken, setAccessToken] = useState('');
+    
 
     function loginForm(e){
         e.preventDefault();
@@ -21,25 +26,23 @@ const Nav = () => {
 
     useEffect(()=>{
         console.log("실행1");
-        console.log('accessToken1 : ' + accessToken);
         setAccessToken(localStorage.getItem('accessToken'));
-        console.log('accessToken2 : ' + accessToken);
     }, [accessToken]);
 
     return(
         <nav className='nav'>
             <div className='content'>
                 <ul className='list'>
-                    <li className='item'><a href="/">홈</a></li>
+                    <li className='item'><a href="/">홈{state.value}</a></li>
                     <li className='item'><a href="/info">여행 정보</a></li>
                     <li className='item'><a href="/">사진</a></li>
                     <li className='item'><a href="/">동영상</a></li>
                 </ul>
             </div>
-            { accessToken === null ?
+            { true ?
             <div className='loginContainer'>
-            <button className='navButton' onClick={joinForm}>가입</button>
-            <button className='navButton' onClick={loginForm}>로그인</button>
+            <button className='navButton' onClick={state.onIncrement}>가입</button>
+            <button className='navButton' onClick={state.onDecrement}>로그인</button>
             </div> : 
             <button className='navButton' onClick={logout}>로그아웃</button>
             }
@@ -48,4 +51,11 @@ const Nav = () => {
     );
 }
 
-export default Nav;
+const mapStateToProps = (state) => {
+    return {
+        value: state.counter.value
+    }
+}
+
+
+export default connect(mapStateToProps)(Nav);
